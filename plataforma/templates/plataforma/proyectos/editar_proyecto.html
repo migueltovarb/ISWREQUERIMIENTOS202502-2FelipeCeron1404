@@ -1,0 +1,21 @@
+{% extends 'plataforma/base.html' %}
+
+{% block title %}Editar Proyecto{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" style="font-size: 2rem; font-weight:600;">
+    ✏️ Editar proyecto: {{ proyecto.nombre }}
+</h2>
+
+<div style="max-width:650px; margin:auto;">
+    <form method="POST" class="p-4 bg-white shadow-sm rounded-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="d-flex gap-3 mt-3">
+            <button class="btn btn-blue btn-apple">Actualizar</button>
+            <a href="{% url 'plataforma:lista_proyectos' %}" class="btn btn-secondary btn-apple">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

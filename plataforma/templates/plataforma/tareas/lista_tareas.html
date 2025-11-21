@@ -1,0 +1,49 @@
+{% extends 'plataforma/base.html' %}
+
+{% block title %}Tareas{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" style="font-size:2rem; display:flex; align-items:center; gap:10px;">
+    📝 Tareas de <strong>{{ proyecto.nombre }}</strong>
+</h2>
+
+<div class="d-flex gap-3 mb-4">
+    <a href="{% url 'plataforma:crear_tarea' proyecto.id %}" class="btn btn-green btn-apple">➕ Crear tarea</a>
+    <a href="{% url 'plataforma:lista_proyectos' %}" class="btn btn-secondary btn-apple">⬅ Volver a proyectos</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover shadow-sm" style="border-radius:16px; overflow:hidden;">
+        <thead class="table-dark">
+            <tr>
+                <th>Título</th>
+                <th>Responsable</th>
+                <th>Estado</th>
+                <th>Prioridad</th>
+                <th>Entrega</th>
+                <th style="width:240px;">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for t in tareas %}
+            <tr style="vertical-align: middle;">
+                <td style="font-weight:500;">{{ t.titulo }}</td>
+                <td>{{ t.responsable }}</td>
+                <td>{{ t.estado }}</td>
+                <td>{{ t.prioridad }}</td>
+                <td>{{ t.fecha_entrega }}</td>
+
+                <td>
+                    <a href="{% url 'plataforma:editar_tarea' t.id %}"
+                        class="btn btn-blue btn-sm btn-apple">Editar</a>
+
+                    <a href="{% url 'plataforma:eliminar_tarea' t.id %}"
+                        class="btn btn-red btn-sm btn-apple">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

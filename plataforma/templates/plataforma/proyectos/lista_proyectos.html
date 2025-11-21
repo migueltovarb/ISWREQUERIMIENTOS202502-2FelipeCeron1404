@@ -1,0 +1,53 @@
+{% extends 'plataforma/base.html' %}
+
+{% block title %}Proyectos{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" style="font-size: 2rem; display:flex; align-items:center; gap:12px;">
+    📁 Lista de Proyectos
+</h2>
+
+<!-- Botón Apple -->
+<a href="{% url 'plataforma:crear_proyecto' %}" 
+   class="btn btn-green btn-apple mb-4"
+   style="font-size: 1.1rem;">
+    ➕ Crear proyecto
+</a>
+
+<!-- Tabla Apple -->
+<div class="table-responsive">
+    <table class="table table-hover shadow-sm" style="border-radius: 16px; overflow:hidden;">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Prioridad</th>
+                <th>Fecha inicio</th>
+                <th style="width: 240px;">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for p in proyectos %}
+            <tr style="vertical-align: middle;">
+                <td style="font-weight: 500;">{{ p.nombre }}</td>
+                <td>{{ p.estado }}</td>
+                <td>{{ p.prioridad }}</td>
+                <td>{{ p.fecha_inicio }}</td>
+
+                <td>
+                    <a href="{% url 'plataforma:editar_proyecto' p.id %}"
+                       class="btn btn-warning btn-sm btn-apple">Editar</a>
+
+                    <a href="{% url 'plataforma:eliminar_proyecto' p.id %}"
+                       class="btn btn-red btn-sm btn-apple">Eliminar</a>
+
+                    <a href="{% url 'plataforma:lista_tareas' p.id %}"
+                       class="btn btn-blue btn-sm btn-apple">Tareas</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
